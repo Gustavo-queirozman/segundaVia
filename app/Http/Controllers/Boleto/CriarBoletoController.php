@@ -10,12 +10,16 @@ use Illuminate\Http\Request;
 
 class CriarBoletoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Handle the incoming request.
     **/
     public function __invoke(Request $request)
     {
-        //PASSAR CNP e AUTOID DO BOLETO
         new BoletoService('11954444605', '759913');
     }
 }

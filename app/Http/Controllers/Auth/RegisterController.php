@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\RegisterUser;
+use App\Services\UsuarioService;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -38,6 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        DB::setDefaultConnection('SegundaVia');
         $this->middleware('guest');
     }
 
@@ -49,8 +53,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
-            'cnp' => ['required', 'string', 'max:20'],
+            'cnp' => ['required', 'string', 'max:20', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -65,11 +70,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'cnp' => $data['cnp'],
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        DB::setDefaultConnection('teste');
+        $searchUserDbCardio = new UsuarioService($data['cnp']);
+        $eUsuario = $searchUserDbCardio->buscarUsuarioDbCardio($data['cnp']);
+
+        if($eUsuario){
+            return User::create([
+                'cnp' => $data['cnp'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+        if($eUsuario ==null){
+            return redirect('/');
+        }
     }
 }

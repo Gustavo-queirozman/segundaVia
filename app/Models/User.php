@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $connection = 'SegundaVia';
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -44,7 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function select(){
+    protected function select($cnp){
 
     }
 }

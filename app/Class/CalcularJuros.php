@@ -30,6 +30,7 @@ class CalcularJuros
     private function calcularMultaMora()
     {
         $multaMora = ($this->valorDoDocumento/100 * 0.02);
-        return ($multaMora);
+        $multaMora = strval($multaMora);
+        return(floatval("$multaMora[0]$multaMora[1]$multaMora[2]$multaMora[3]"));
     }
 }
