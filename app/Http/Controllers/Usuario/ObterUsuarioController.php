@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UsuarioService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ObterUsuarioController extends Controller
 {
@@ -17,19 +18,26 @@ class ObterUsuarioController extends Controller
     {
 
         try {
+            Log::info('Removendo caracteres especiais do cnp...');
             $cnp = preg_replace('/[^a-zA-Z0-9\s]/', '', $request->input('cnp'));
+
+            Log::info('Validando cnp...');
             $this->validate($request, [
                 'cnp' => 'required|cpf_cnpj',
             ]);
 
+            Log::info('Procurando cnp no DB Cardio...');
             $eUsuario = new UsuarioService($cnp);
             $eUsuario = $eUsuario->buscarUsuarioDbCardio($cnp);
-            
+
+            Log::info('Usuário encontrado no DB Cardio...');
+            Log::info('Redirecionando para tela de login com cnp...');
             if ($eUsuario) {
                 return view('auth.login', ['cnp' => $cnp]);
             }
 
             $message = "Erro, não é contratante!";
+            log::error("Esse cnp não é de contratante!");
             return redirect('/')->with('mensagem', $message);
         } catch (Exception $erro) {
             $message = $erro->getMessage();
