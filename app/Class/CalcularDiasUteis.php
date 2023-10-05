@@ -9,10 +9,10 @@ use Ramsey\Uuid\Type\Integer;
 class CalcularDiasUteis
 {
     public int $diasUteis;
-    public $dataFinal;
-    public function __construct(protected Datetime $dataInicial)
+    //public $dataFinal;
+    public function __construct(protected Datetime $dataInicial, protected $dataFinal)
     {
-        $this->dataFinal = new DateTime(now()->format('d-m-Y'));
+        //$this->dataFinal = new DateTime(now()->format('d-m-Y'));
         return $this->calcularDiasUteis();
     }
 

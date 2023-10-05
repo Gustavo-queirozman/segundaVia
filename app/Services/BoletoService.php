@@ -23,12 +23,14 @@ class BoletoService
 
     private function carregarBoleto($cnp, $autoId){
         $boleto = new Boleto();
-        $this->boleto = $boleto->select($cnp, $autoId)[0];
+        $this->boleto = $boleto->selectBoleto($cnp, $autoId)[0];
     }
 
     private function calcularMulta(){
-        if ($this->boleto->dataDeVencimento < now()->format('d/m/Y')) {
+
+        if ($this->boleto->dataDeVencimento < now()->format('m/d/Y')) {
             $calculo = new CalcularDiasUteis(new DateTime($this->boleto->dataDeVencimento));
+
 
             $juros = new CalcularJuros($this->boleto->valorDoDocumento*100, $calculo->diasUteis);
             $this->multa = $juros->multa;
@@ -37,7 +39,7 @@ class BoletoService
 
     private function criarBoleto()
     {
-        $sacado = new Agente($this->boleto->nomePessoa, $this->boleto->cnp, 'RUA DO JAMBO, 85 JARDIM PRIMAVERA', $this->boleto->cep, $this->boleto->cidade, $this->boleto->uf);
+        $sacado = new Agente($this->boleto->nomePessoa, $this->boleto->cnp, $this->boleto->rua. ', '. $this->boleto->numero .' '. $this->boleto->bairro , $this->boleto->cep, $this->boleto->cidade, $this->boleto->uf);
         $cedente = new Agente('Unimed Noroeste de Minas', '41.905.498/0001-19', 'RUA JOSINO VALARES 33 CENTRO', '38600-000', 'Paracatu', 'MG');
 
         $boleto = new Unicred(array(

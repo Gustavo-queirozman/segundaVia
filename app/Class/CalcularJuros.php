@@ -18,6 +18,7 @@ class CalcularJuros
     private function calcularJurosTotal()
     {
         $juros = $this->calcularJurosMora() + $this->calcularMultaMora();
+ 
         return ($juros);
     }
 
