@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class UsuarioService
 {
+
     public function buscarUsuarioDbCardio($cnp)
     {
-        try{
+        try {
 
-            $contratante =
-            DB::select("Select top 1
+            $contratante = DB::select("
+            Select top 1
             Case
             When  ContratoFinanceiro.Codigo IS NULL THEN 0
             when ContratoFinanceiro.Codigo IS not NULL THEN 1
@@ -24,12 +25,11 @@ class UsuarioService
             full  join Pessoa on Pessoa.autoid = Contratofinanceiro.pessoa
             where Pessoa.cnp = '$cnp';");
 
-            return $contratante;
-            if (intval($contratante) == 1) {
+            if (intval($contratante[0]->contratante)) {
                 return true;
-            }else{
-                return false;
             }
+
+            return false;
         } catch (Exception $erro) {
             //echo ($erro);
         }

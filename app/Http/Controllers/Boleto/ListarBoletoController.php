@@ -25,10 +25,6 @@ class ListarBoletoController extends Controller
 
 
         $cnp = Auth::user()->cnp;
-        $this->listarBoletos($cnp);
-    }
-
-    public function listarBoletos($cnp){
         $boletos = new Boleto;
         $boletos = $boletos->selectBoletos($cnp);
         return view('boleto.index', ['boletos' => $boletos]);

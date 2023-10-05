@@ -11,7 +11,7 @@ class Boleto extends Model
 {
     use HasFactory;
 
-    public function select($cnp, $autoId)
+    public function selectBoleto($cnp, $autoId)
     {
         try {
             return DB::select("
