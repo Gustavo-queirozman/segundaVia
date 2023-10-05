@@ -24,10 +24,8 @@ class UsuarioService
             from ContratoFinanceiro
             full  join Pessoa on Pessoa.autoid = Contratofinanceiro.pessoa
             where Pessoa.cnp = '41905498000119';");
-       
 
-            //return $contratante;
-
+            return $contratante;
             if (intval($contratante) == 1) {
                 return true;
             }else{

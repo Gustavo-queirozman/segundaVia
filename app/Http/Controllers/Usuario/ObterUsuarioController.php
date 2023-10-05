@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UsuarioService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ObterUsuarioController extends Controller
@@ -26,9 +27,13 @@ class ObterUsuarioController extends Controller
                 'cnp' => 'required|cpf_cnpj',
             ]);
 
-            Log::info('Procurando cnp no DB Cardio...');
+            Log::info('Iniciando serviço de usuário...');
             $eUsuario = new UsuarioService($cnp);
+            DD(DB::enableQueryLog());
+            Log::info('Procurando cnp no DB Cardio...');
             $eUsuario = $eUsuario->buscarUsuarioDbCardio($cnp);
+
+            dd($eUsuario);
 
             Log::info('Usuário encontrado no DB Cardio...');
             Log::info('Redirecionando para tela de login com cnp...');
