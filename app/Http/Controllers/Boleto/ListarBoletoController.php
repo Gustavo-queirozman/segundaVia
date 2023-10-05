@@ -18,15 +18,20 @@ class ListarBoletoController extends Controller
     public function __invoke(Request $request)
     {
         if (Gate::allows('permission-adm')) {
-            $cnp = $request->input('cnp');
-            $boletos = $this->listarBoletos($cnp);
-            return view('boleto.index', ['boletos'=> $boletos]);
+            return $this->listarBoletos($request->input('cnp'));
         }
 
+        return $this->listarBoletos(Auth::user()->cnp);
+    }
 
-        $cnp = Auth::user()->cnp;
+    protected function listarBoletos($cnp)
+    {
         $boletos = new Boleto;
-        $boletos = $boletos->selectBoletos($cnp);
-        return view('boleto.index', ['boletos' => $boletos]);
+
+        if (Gate::allows('permission-adm')) {
+            return view('boleto.index', ['boletos' => $boletos->selectBoletos($cnp)]);
+        }
+
+        return view('boleto.index', ['boletos' => $boletos->selectBoletos($cnp)]);
     }
 }

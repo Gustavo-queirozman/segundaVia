@@ -13,7 +13,6 @@ Route::get('/', function () {
     return view('auth');
 });
 
-
 Route::get('/boleto', CriarBoletoController::class);
 Route::get('/home', ListarBoletoController::class);
 Route::get('/detalhe', MostrarDetalheDocumentoController::class);
