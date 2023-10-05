@@ -29,7 +29,6 @@ class ObterUsuarioController extends Controller
 
             Log::info('Iniciando serviço de usuário...');
             $eUsuario = new UsuarioService($cnp);
-            DD(DB::enableQueryLog());
             Log::info('Procurando cnp no DB Cardio...');
             $eUsuario = $eUsuario->buscarUsuarioDbCardio($cnp);
 

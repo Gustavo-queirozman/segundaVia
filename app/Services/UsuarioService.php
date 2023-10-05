@@ -13,7 +13,6 @@ class UsuarioService
     public function buscarUsuarioDbCardio($cnp)
     {
         try{
-            DB::setDefaultConnection('teste');
 
             $contratante =
             DB::select("Select top 1
@@ -23,7 +22,7 @@ class UsuarioService
             END AS 'contratante'
             from ContratoFinanceiro
             full  join Pessoa on Pessoa.autoid = Contratofinanceiro.pessoa
-            where Pessoa.cnp = '41905498000119';");
+            where Pessoa.cnp = '$cnp';");
 
             return $contratante;
             if (intval($contratante) == 1) {

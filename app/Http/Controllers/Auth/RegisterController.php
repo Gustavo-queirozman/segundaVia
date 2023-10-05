@@ -42,7 +42,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        Log::info('Trocando DB para "Segunda Via"...');
+        Log::info("Trocando DB para 'Segunda Via'...");
         DB::setDefaultConnection('SegundaVia');
         $this->middleware('guest');
     }
