@@ -18,8 +18,7 @@ class MostrarDemonstrativoDocumentoController extends Controller
     public function __invoke(Request $request)
     {
         $autoId = '';
-        $demonstrativo = new Boleto;
-        $demonstrativo = $demonstrativo->selectDemonstrativo($autoId);
+        $demonstrativo = Boleto::selectDemonstrativo($autoId);
 
         return view('documento.demonstrativo', ['demonstrativo' => $demonstrativo]);
     }

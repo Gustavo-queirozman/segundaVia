@@ -18,8 +18,7 @@ class MostrarDocumentoController extends Controller
     public function __invoke(Request $request)
     {
         $autoId= '';
-        $documento = new Boleto;
-        $documento = $documento->selectDocumento($autoId);
+        $documento = Boleto::selectDocumento($autoId);
         return view('documento.documento', ['documento' => $documento]);
     }
 }

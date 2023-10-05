@@ -98,7 +98,7 @@ class Boleto extends Model
         }
     }
 
-    public function selectDemonstrativo($autoId)
+    public static function selectDemonstrativo($autoId)
     {
         try {
             return DB::select("
@@ -142,7 +142,7 @@ class Boleto extends Model
         }
     }
 
-    public function selectDocumento($autoId)
+    public static function selectDocumento($autoId)
     {
         try {
 
@@ -187,7 +187,7 @@ class Boleto extends Model
         }
     }
 
-    public function selectDetalheDocumento($autoId)
+    public static function selectDetalheDocumento($autoId)
     {
 
         try {

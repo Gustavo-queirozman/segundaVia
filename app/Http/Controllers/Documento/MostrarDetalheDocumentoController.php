@@ -18,8 +18,7 @@ class MostrarDetalheDocumentoController extends Controller
     public function __invoke(Request $request)
     {
         $autoId = '624928';
-        $detalhes = new Boleto;
-        $detalhes = $detalhes->selectDetalheDocumento($autoId);
+        $detalhes = Boleto::selectDetalheDocumento($autoId);
         return view('documento.detalhes', ['detalhes' => $detalhes]);
     }
 }
