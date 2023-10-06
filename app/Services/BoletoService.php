@@ -29,8 +29,7 @@ class BoletoService
     private function calcularMulta(){
 
         if ($this->boleto->dataDeVencimento < now()->format('m/d/Y')) {
-            $calculo = new CalcularDiasUteis(new DateTime($this->boleto->dataDeVencimento));
-
+            $calculo = new CalcularDiasUteis(new DateTime($this->boleto->dataDeVencimento), new DateTime(now()->format('d-m-Y')));
 
             $juros = new CalcularJuros($this->boleto->valorDoDocumento*100, $calculo->diasUteis);
             $this->multa = $juros->multa;

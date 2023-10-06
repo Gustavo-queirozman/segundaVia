@@ -13,6 +13,7 @@ class CalcularDiasUteis
     public function __construct(protected Datetime $dataInicial, protected $dataFinal)
     {
         //$this->dataFinal = new DateTime(now()->format('d-m-Y'));
+        //$this->dataFinal = $dataFinal->format('d-m-Y'));
         return $this->calcularDiasUteis();
     }
 

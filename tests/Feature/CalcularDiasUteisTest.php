@@ -28,7 +28,7 @@ class CalcularDiasUteisTest extends TestCase
     }
     public function testCalcularDiasUteisComDatasInvalidas(){
         $dataInicial = new DateTime('2023-10-11111');
-        $dataFinal = new DateTime('10-10-202311'); //1 feriado
+        $dataFinal = new DateTime('10-10-20231'); //1 feriado
         $resultado = new CalcularDiasUteis($dataInicial, $dataFinal);
         $this->assertEquals(10, $resultado->diasUteis);
     }
