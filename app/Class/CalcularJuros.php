@@ -12,23 +12,22 @@ class CalcularJuros
         public int $diasUteis
     ) {
         $this->multa = $this->calcularJurosTotal();
-        return($this->multa);
+        return $this->multa;
     }
 
     private function calcularJurosTotal()
     {
-        $juros = $this->calcularJurosMora() + $this->calcularMultaMora();
- 
-        return ($juros);
+        $juros = $this->calcularMoraDiaria() + $this->calcularMulta();
+        return $juros;
     }
 
-    private function calcularJurosMora()
+    private function calcularMoraDiaria()
     {
         $jurosMora = (ceil(0.03 * $this->valorDoDocumento/100) / 100 * $this->diasUteis);
-        return ($jurosMora);
+        return $jurosMora;
     }
 
-    private function calcularMultaMora()
+    private function calcularMulta()
     {
         $multaMora = ($this->valorDoDocumento/100 * 0.02);
         $multaMora = strval($multaMora);
