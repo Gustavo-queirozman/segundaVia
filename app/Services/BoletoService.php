@@ -38,13 +38,13 @@ class BoletoService
 
     private function criarBoleto()
     {
-        $sacado = new Agente($this->boleto->nomePessoa, $this->boleto->cnp, $this->boleto->rua. ', '. $this->boleto->numero .' '. $this->boleto->bairro , $this->boleto->cep, $this->boleto->cidade, $this->boleto->uf);
+        $sacado = new Agente($this->boleto->nomePessoa, $this->boleto->cnp, $this->boleto->rua. ' '. $this->boleto->numero .' - '. $this->boleto->bairro , $this->boleto->cep, $this->boleto->cidade, $this->boleto->uf);
         $cedente = new Agente('Unimed Noroeste de Minas', '41.905.498/0001-19', 'RUA JOSINO VALARES 33 CENTRO', '38600-000', 'Paracatu', 'MG');
 
         $boleto = new Unicred(array(
             // Parâmetros obrigatórios
-            'dataVencimento' => new DateTime($this->boleto->dataDeVencimento),
-
+            'dataVencimento' =>  new DateTime(),
+            'dataDocumento' => new DateTime($this->boleto->dataDeVencimento),
             'sequencial' => substr($this->boleto->nossoNumero, 0, -1), // Para gerar o nosso número /*6 numeros
             'especieDoc' => 'DM',
             'sacado' => $sacado,
@@ -58,7 +58,7 @@ class BoletoService
             'valor' => $this->boleto->valorDoDocumento,
             'moraMulta' => $this->multa,
             'valorCobrado' => $this->boleto->valorDoDocumento + $this->multa,
-
+            'dataProcessamento' => new DateTime(),
             'descricaoDemonstrativo' => array( // Até 5
                 'Plano de Saúde'
             ),
